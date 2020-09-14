@@ -54,6 +54,30 @@ weapons = []
 # 무기 이동 속도
 weapon_speed = 10
 
+# 공 만들기 (4개 크기에 대해 따로 처리)
+ball_images = [
+    pygame.image.load(os.path.join(image_path, "ballon1.png")),
+    pygame.image.load(os.path.join(image_path, "ballon2.png")),
+    pygame.image.load(os.path.join(image_path, "ballon3.png")),
+    pygame.image.load(os.path.join(image_path, "ballon4.png"))
+]
+
+# 공 크기에 따른 최초 스피드
+ball_speed_y = [-18, -15, -12, -9]  # index 0, 1, 2, 3 에 해당하는 값
+
+# 공들
+balls = []
+
+# 최초 발생하는 큰 공 추가
+balls.append({
+    "pos_x" : 50,   # 공의 x 좌표
+    "pos_y" : 50,   # 공의 y 좌표
+    "img_dix" : 0,  # 공의 이미지 인덱스
+    "to_x" : 3,     # x 축 이동방향
+    "to_y" : -6     # y 축 이동방향
+    "init_spe_y" : ball_speed_y[0]  # y 최초 속도
+})
+
 running = True
 while running:
     dt = clock.tick(30)
@@ -89,7 +113,7 @@ while running:
     weapons = [[w[0], w[1] - weapon_speed] for w in weapons]    # 무기 위치를 위로
     
     # 천장에 닿은 무기 없애기
-    weapons = [ [w[0],w[1]] for w in weapons if w[1] > 0 ]
+    weapons = [[w[0],w[1]] for w in weapons if w[1] > 0]
 
     # 4. 충돌 처리
 
